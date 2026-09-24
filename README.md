@@ -61,3 +61,14 @@ The API runs at `http://localhost:3000`, the Angular UI at `http://localhost:420
    ```
 
 Replace `backend` with `frontend` or `cli` as needed. The submodule commit and the superproject pointer commit are separate records; both are required to publish an update through `main`.
+
+## Generated Bundle
+
+The `bundle` submodule is generated release output: one Bun process serves the API, redirects, and built web UI, with the CLI alongside it. Never hand-edit generated files in `bundle/`. Regenerate it from `main` with:
+
+```sh
+node scripts/build-bundle.mjs
+node scripts/build-bundle.mjs --push
+```
+
+The script is idempotent. It only commits and pushes the bundle branch or its `main` pointer when staged content changed.
