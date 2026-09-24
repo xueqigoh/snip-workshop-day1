@@ -12,8 +12,8 @@
     </div>
     <form (ngSubmit)="addLink()">
       <label class="sr-only" for="url">Long URL</label>
-      <input id="url" name="url" type="url" [ngModel]="url()" (ngModelChange)="url.set($event)" placeholder="https://your-long-url.com/..." autocomplete="url" />
-      <button type="submit" [disabled]="submitting()">{{ submitting() ? 'Shortening...' : 'Shorten URL' }}</button>
+      <input class="url-input" id="url" name="url" type="url" [ngModel]="url()" (ngModelChange)="url.set($event)" placeholder="Paste a long URL to shorten..." autocomplete="url" />
+      <button class="submit-button" type="submit" [disabled]="submitting()">{{ submitting() ? 'Shortening...' : 'Shorten URL' }}</button>
     </form>
     @if (notice()) {
       <p class="notice" role="status">{{ notice() }}</p>
