@@ -1,8 +1,8 @@
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const root = process.cwd();
+const root = resolve(dirname(import.meta.filename), '..');
 const frontend = join(root, 'frontend');
 const bundle = join(root, 'bundle');
 const frontendOutput = join(frontend, 'dist', 'snip-frontend', 'browser');
