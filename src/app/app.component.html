@@ -1,0 +1,54 @@
+<main class="page-shell">
+  <header class="hero">
+    <p class="eyebrow">SNIP / URL SHORTENER</p>
+    <h1>Make every link<br /><em>easy to share.</em></h1>
+    <p class="intro">Turn a long URL into a clean, memorable shortcut.</p>
+  </header>
+
+  <section class="composer" aria-labelledby="composer-title">
+    <div>
+      <p class="section-label" id="composer-title">Create a short link</p>
+      <p class="section-help">Paste any public http or https URL below.</p>
+    </div>
+    <form (ngSubmit)="addLink()">
+      <label class="sr-only" for="url">Long URL</label>
+      <input id="url" name="url" type="url" [ngModel]="url()" (ngModelChange)="url.set($event)" placeholder="https://your-long-url.com/..." autocomplete="url" />
+      <button type="submit" [disabled]="submitting()">{{ submitting() ? 'Shortening...' : 'Shorten URL' }}</button>
+    </form>
+    @if (notice()) {
+      <p class="notice" role="status">{{ notice() }}</p>
+    }
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
+    }
+  </section>
+
+  <section class="links-section" aria-labelledby="links-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-label" id="links-title">Your links</p>
+        <p class="section-help">Every shortcut created in this session.</p>
+      </div>
+      <span class="count">{{ links().length }} total</span>
+    </div>
+
+    @if (links().length) {
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Short link</th><th>Original URL</th><th>Visits</th></tr></thead>
+          <tbody>
+            @for (link of links(); track link.code) {
+              <tr>
+                <td><a [href]="link.shortUrl" target="_blank" rel="noreferrer">/{{ link.code }}</a></td>
+                <td class="original-url" [title]="link.url">{{ link.url }}</td>
+                <td>{{ link.hits }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="empty-state">No links yet. Your first shortcut will appear here.</div>
+    }
+  </section>
+</main>
